@@ -1,0 +1,1082 @@
+html, body { height: 100%; }
+body { height: 100vh; }
+main { flex: 1; min-height: 0; }
+#screen-chat { min-height: 0; }
+.chatMessages { min-height: 0; }
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  /* Animated multi-color gradient */
+  background: linear-gradient(
+    270deg,
+    rgba(0, 159, 222, 1) 0%,
+    rgba(224, 78, 237, 1) 25%,
+    rgb(153, 89, 255) 50%,
+    rgba(0, 159, 222, 1) 100%
+  );
+  background-size: 800% 800%;
+  animation: gradientShift 12s ease infinite;
+}
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  align-items: center;        /* ⬅️ вместо justify-items */
+  justify-content: flex-start;
+
+  padding: 8px;
+  gap: 10px;
+ 
+  background-color: rgb(53, 166, 211);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+
+  z-index: 999;
+}
+
+
+.header h1 {
+  font-size:25px;
+  line-height: 15px;
+}
+#avatar{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  overflow: hidden;
+
+  background-color: rgb(241, 241, 241);  
+  box-sizing: border-box;
+  overflow: hidden
+  
+  
+}
+
+main {
+  flex: 10;                       
+  display: flex;
+  flex-direction: column;
+  justify-content: center;         
+  align-items: center;             
+  gap: 12px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  padding-top: 100px;
+}
+
+.chat-img {
+  width: 200px;
+  height: 200px;
+}
+
+.name {
+  display: flex;
+  justify-content: center;
+  color:grey;
+}
+
+.footer {
+  flex: 6;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+    background-color: transparent;
+}
+
+.buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 0px;
+  background-color: transparent;
+}
+
+.tab{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  font-size: x-large;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.tab span{
+  display: inline-block;
+   color: rgb(255, 255, 255);
+  background-color: transparent;
+  padding: 0 10px 6px;     /* 10px делает линию короче текста */
+  border-bottom: 3px solid #000;
+}
+
+.LSD {
+  display: flex;
+  padding: 0px;
+  height: auto;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.LSD h1 {
+  background-image: linear-gradient(   270deg,
+    rgba(0, 159, 222, 1) 0%,
+    rgba(224, 78, 237, 1) 25%,
+    rgb(153, 89, 255) 50%,
+    rgba(0, 159, 222, 1) 100%);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+
+.poisk {
+margin-top: 100px;
+  width: 90%;
+  height: 60px;
+
+  display: flex;
+  border-radius: 30px;
+  justify-content: space-between;
+  justify-items: center;
+}
+
+input {
+  flex: 1;
+  background: transparent;   /* убирает фон */
+  border: 2px;
+  border-radius: 25px;               /* убирает рамку */
+  outline: 2px solid white;              /* убирает обводку при фокусе */
+  font-size: 20px;
+  color: #fff;
+  padding: 8px 12px;   /* воздух внутри */
+  
+}
+input::placeholder {
+  color: rgb(255, 255, 255);
+}
+.settings_bt {
+  background: transparent;
+  width: 50px;
+  height: 50px;
+  border: 0;
+}
+.settings_bt img {
+  width: 50px;
+  height: 50px;
+}
+
+.search_bt {
+  width: 60px;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 25px;
+  background-color: rgb(0, 183, 255);
+
+}
+
+.search_bt img {
+  width: 50px;
+  height: 50px;
+}
+
+/* 2 экрана внутри main */
+.screen {
+  display: none;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.screen.active {
+  display: flex;
+}
+
+/* Подчёркивание только у активного таба */
+.tab span {
+  border-bottom: 3px solid transparent; /* по умолчанию нет линии */
+}
+
+.tab.active span {
+  border-bottom-color: #000; /* линия только у выбранного */
+}
+
+/* Блок задач (в твоём стиле, светло-серый) */
+.tasksBox {
+  width: 90%;
+  max-width: 420px;
+  background: rgb(241, 241, 241);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.tasksHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tasksHeader h2 {
+  margin: 0;
+}
+
+.clearBtn {
+  background: transparent;
+  border: 0;
+  color: rgb(53, 166, 211);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ===== TASKS -> CARDS STYLE (как в плане) ===== */
+
+.tasksBox{
+  width: 90%;
+  max-width: 520px;
+  background: rgb(241, 241, 241);   /* как cardBox */
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.tasksHeader{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tasksHeader h2{
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.clearBtn{
+  background: transparent;
+  border: 0;
+  color: rgb(53, 166, 211);
+  font-weight: 800;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 10px;
+}
+
+.clearBtn:active{
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* список карточек */
+.tasksList{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+/* каждая задача = карточка как cardTask */
+.taskItem{
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+/* чекбокс чуть аккуратнее */
+.taskItem input[type="checkbox"]{
+  width: 18px;
+  height: 18px;
+  accent-color: rgb(53, 166, 211);
+  flex: 0 0 auto;
+}
+
+/* текст задачи */
+.taskItem .taskText{
+  flex: 1;
+}
+
+/* выполнено */
+.taskItem.done{
+  opacity: 0.65;
+}
+
+.taskItem.done .taskText{
+  text-decoration: line-through;
+}
+
+/* подсказка снизу */
+.tasksHint{
+  margin: 10px 2px 0;
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+/* ===== DARK MODE для задач ===== */
+body.dark .tasksBox{
+  background: #1a1a27; /* как твой dark cardBox */
+  color: #fff;
+}
+
+body.dark .taskItem{
+  background: #14141c; /* как твой dark cardTask */
+  color: #fff;
+}
+
+body.dark .clearBtn{
+  color: rgba(255,255,255,0.85);
+}
+
+
+/* -------- THEME VARIABLES -------- */
+/* ---- Drawer (left -> right, half screen) ---- */
+.drawerOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 80;
+}
+
+.drawer {
+  position: fixed;
+  top: 7vh;
+  left: 0;
+  width: 50vw;           /* половина экрана */
+  max-width: 420px;      /* чтобы не было слишком широко на больших экранах */
+  height: 95vh;
+  background: var(--panel, #fff);
+  transform: translateX(-105%);
+  transition: transform 0.25s ease;
+  z-index: 90;
+  box-shadow: 12px 0 30px rgba(0,0,0,0.25);
+  border-right: 1px solid rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 12px;
+}
+
+.drawer.open {
+  transform: translateX(0);
+}
+
+.drawerOverlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Header */
+.drawerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawerTitle {
+  margin: 0;
+  font-size: 20px;
+}
+
+.drawerClose {
+  background: transparent;
+  border: 0;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Cards in your style */
+.drawerCard {
+  background: rgb(241, 241, 241);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.drawerCardGrow {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Theme row */
+.themeRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.themeLabel { font-weight: 700; }
+
+.themeToggle {
+  display: flex;
+  gap: 8px;
+}
+
+.themeBtn {
+  border: 1px solid rgba(0,0,0,0.12);
+  background: transparent;
+  padding: 8px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.themeBtn.active {
+  background: rgb(53, 166, 211);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* History */
+.historyHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.historyHead h3 { margin: 0; }
+
+.historyList {
+  background: #fff;
+  border-radius: 14px;
+  padding: 10px;
+  overflow: auto;
+  flex: 1;
+}
+
+.historyItem {
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.historyItem:last-child { margin-bottom: 0; }
+
+.historyTime {
+  opacity: 0.65;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+:root {
+  --accent: rgb(53, 166, 211);
+  --bg: #ffffff;
+  --text: #000000;
+  --card: rgb(241, 241, 241);
+  --panel: #ffffff;
+  --border: rgba(0,0,0,0.12);
+}
+
+body.dark {
+  --bg: #0f0f14;
+  --text: #ffffff;
+  --card: #1a1a27;
+  --panel: #14141c;
+  --border: rgba(255,255,255,0.12);
+}
+
+/* применяем тему к твоим блокам */
+main { background-color: var(--bg); }
+.tab {   background-color: transparent; }
+.header { background-color: var(--accent); }
+.screen.active img { filter: invert(0); }
+
+/* Dark mode (в твоём стиле, но темнее) */
+body.dark .drawer { background: #14141c; border-right-color: rgba(255,255,255,0.12); }
+body.dark .drawerCard { background: #1a1a27; }
+body.dark .historyList { background: #14141c; }
+body.dark .historyItem { border-color: rgba(255,255,255,0.12); }
+body.dark .themeBtn { border-color: rgba(255,255,255,0.18); color: #fff; }
+body.dark .drawerClose, body.dark .drawerTitle { color: #fff; }
+body.dark .screen.active img { filter: invert(1); }
+body.dark .drawerCard { color: #fff;}
+
+/* По умолчанию скрываем кнопку */
+#planBtn { display: none; }
+
+/* Показываем только в режиме чата */
+body.chat-mode #planBtn { display: inline-flex; }
+
+
+/* Аватар как кнопка */
+.avatar_bt{
+  background: transparent;
+  border: 0;
+  padding: 0;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+/* Profile modal overlay */
+.profileOverlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 95;
+}
+
+.profileOverlay.open{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Profile modal */
+.profileModal{
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 50%) scale(0.98);
+  width: min(100vw, 460px);
+  max-height: 60vh;
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 100;
+}
+
+body.dark .profileModal{
+  background: #14141c;
+  color: #fff;
+}
+
+.profileModal.open{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -15%) scale(1);
+}
+
+.profileHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+}
+
+.profileTitle{ margin: 0; font-size: 20px; }
+.profileClose{
+  background: transparent;
+  border: 0;
+  font-size: 22px;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* Avatar half screen */
+.profileAvatarWrap{
+  background: rgb(0, 195, 255);
+  display: flex;
+  gap: 10px;
+  padding: 5px;
+  align-items: center;
+  justify-content: start;
+}
+
+.profileAvatarWrap img{
+  width: 75%;
+  max-width: 100px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  object-fit: cover;
+  background: rgb(241, 241, 241);
+}
+
+.profileCard{
+  padding: 12px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.field{
+  gap: 6px;
+  width: 95%;
+}
+
+.field label{
+  font-weight: 700;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.field input,
+.field textarea{
+  width: 100%;
+  border-radius: 14px;
+  border: 0;
+  outline: 0;
+  padding: 10px 12px;
+  background: rgb(241, 241, 241);
+  font-size: 16px;
+}
+
+body.dark .field input,
+body.dark .field textarea{
+  background: #1a1a27;
+  color: #fff;
+}
+
+.field input[readonly]{
+  opacity: 0.75;
+}
+
+.profileSave{
+  width: 100%;
+  padding: 12px;
+  border-radius: 14px;
+  border: 0;
+  background: rgb(53, 166, 211);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.profileHint{
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.aiOverlay{
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.35);
+  opacity:0; pointer-events:none;
+  transition:.2s;
+  z-index:110;
+}
+.aiOverlay.open{opacity:1; pointer-events:auto;}
+
+.aiModal{
+  position:fixed;
+  left:50%; top:50%;
+  transform:translate(-50%,-50%) scale(.98);
+  width:min(92vw,520px);
+  max-height:85vh;
+  background: var(--panel, #fff);
+  border-radius:18px;
+  opacity:0; pointer-events:none;
+  transition:.2s;
+  z-index:120;
+  overflow:hidden;
+}
+.aiModal.open{opacity:1; pointer-events:auto; transform:translate(-50%,-50%) scale(1);}
+
+.aiModalHeader{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:12px;
+}
+.aiModalHeader button{background:transparent;border:0;font-size:22px;cursor:pointer;color:inherit;}
+
+.aiText{
+  margin:0;
+  padding:12px;
+  white-space:pre-wrap;
+  overflow:auto;
+  max-height:calc(85vh - 52px);
+  background:transparent;
+  font-size:14px;
+}
+
+.cardsArea{
+  width: 90%;
+  max-width: 520px;
+  display: grid;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.cardBox{
+  background: rgb(241, 241, 241);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.cardTitle{
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.cardTasks{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.cardTask{
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  font-size: 14px;
+}
+
+.taskMeta{
+  opacity: .7;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.cardActions{
+  display:flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.cardBtn{
+  flex: 1;
+  border: 0;
+  border-radius: 12px;
+  padding: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.cardBtn.accept{
+  background: rgb(53, 166, 211);
+  color: #fff;
+}
+
+.cardBtn.reject{
+  background: transparent;
+  border: 2px solid rgba(0,0,0,0.15);
+}
+
+/* overlays НЕ должны ловить клики, пока закрыты */
+.drawerOverlay,
+.profileOverlay,
+.aiOverlay {
+  pointer-events: none;
+}
+
+/* ловят клики ТОЛЬКО когда open */
+.drawerOverlay.open,
+.profileOverlay.open,
+.aiOverlay.open {
+  pointer-events: auto;
+}
+
+/* ===== CHAT PANE (Telegram-like) ===== */
+.chatPane{
+  display: none;              /* включим только в chat-mode */
+  width: 92%;
+  max-width: 520px;
+  height: calc(100vh - 50px - 86px); /* header 50px + footer ~86px */
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.chatMessages{
+  height: 100%;
+  overflow-y: auto;
+  padding: 14px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chatTyping{
+  padding: 10px 14px;
+  font-size: 13px;
+  color: rgba(247, 1, 1, 0.75);
+}
+
+/* bubble */
+.msg{
+  max-width: 80%;
+  padding: 10px 12px;
+  border-radius: 16px;
+  color: #000000;
+  font-size: 15px;
+  line-height: 1.25;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.msg.user{
+  align-self: flex-end;
+  border-bottom-right-radius: 6px;
+  background: rgba(0,0,0,0.28);
+}
+
+.msg.ai{
+  align-self: flex-start;
+  border-bottom-left-radius: 6px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+/* ===== FOOTER как у Telegram (всегда снизу) ===== */
+
+
+/* ====== NORMAL MODE (как было) ====== */
+/* твой .poisk margin-top:100px пусть остаётся как сейчас */
+
+/* чат по умолчанию скрыт и НЕ влияет */
+#chatPane { display: none; }
+
+/* ===== CHAT SCREEN (отдельный экран) ===== */
+#screen-chat{
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0 0;
+  box-sizing: border-box;
+}
+
+/* верхняя строка в чате */
+.chatTop{
+  width: 92%;
+  max-width: 520px;
+  display: flex;
+  justify-content: center;
+}
+
+.chatTitle{
+  font-weight: 800;
+  font-size: 16px;
+  color: rgba(255,255,255,0.95);
+  padding: 8px 14px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.12); /* легкая прозрачная плашка, можно убрать */
+  backdrop-filter: blur(6px);
+}
+
+/* поле сообщений — ПРОЗРАЧНОЕ */
+.chatMessages{
+  width: 92%;
+  max-width: 520px;
+  height: calc(100vh - 50px - 86px - 56px); 
+  /* header 50 + footer ~86 + chatTop ~56 */
+  overflow-y: auto;
+  padding: 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  background: transparent;    /* ✅ чат без фона */
+  border: none;               /* ✅ без рамок */
+}
+
+/* "AI печатает" */
+.chatTyping{
+  width: 92%;
+  max-width: 520px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.75);
+  padding: 0 12px 8px;
+  box-sizing: border-box;
+}
+
+/* bubbles */
+.msg{
+  max-width: 80%;
+  padding: 10px 12px;
+  border-radius: 16px;
+  color: #fff;                /* белый текст */
+  font-size: 15px;
+  line-height: 1.25;
+  white-space: pre-wrap;
+  word-break: break-word;
+  backdrop-filter: blur(6px);
+}
+
+.msg.user{
+  align-self: flex-end;
+  border-bottom-right-radius: 6px;
+  background: rgba(0,0,0,0.28);
+}
+
+.msg.ai{
+  align-self: flex-start;
+  border-bottom-left-radius: 6px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* ===== FOOTER внизу только в чат-режиме ===== */
+/* по умолчанию оставляем твою верстку (как была) */
+body.chat-mode .footer{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  padding: 10px;
+  z-index: 60;
+}
+
+/* в чате поле ввода без margin-top:100px */
+body.chat-mode .poisk{
+  margin-top: 0;
+  width: 92%;
+  max-width: 520px;
+  height: 56px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* чтобы main не прятался под footer */
+body.chat-mode main{
+  padding-bottom: 86px;
+  box-sizing: border-box;
+  background: transparent;    /* ✅ чат без фона */
+  border: none;               /* ✅ без рамок */
+}
+.historyChat{
+  cursor: pointer;
+  transition: transform .12s ease, opacity .12s ease;
+}
+.historyChat:active{
+  transform: scale(0.99);
+  opacity: .9;
+}
+
+.historyDelBtn{
+  border: 0;
+  background: transparent;
+  font-size: 18px;
+  font-weight: 900;
+  cursor: pointer;
+  color: rgba(0,0,0,0.55);
+}
+body.dark .historyDelBtn{
+  color: rgba(255,255,255,0.65);
+}
+
+/* Кнопка "Создать план" */
+.plan_bt{
+  border: 2px solid rgba(255,255,255,0.8);
+  background: rgba(0,0,0,0.12);
+  color: #fff;
+  font-weight: 900;
+  border-radius: 25px;
+  padding: 0 14px;
+  height: 56px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: transform .12s ease, opacity .12s ease;
+}
+.plan_bt:active{ transform: scale(0.98); opacity: .9; }
+.plan_bt[disabled]{ opacity: .6; cursor: default; }
+
+/* Оверлей плана */
+.planOverlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.40);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 140;
+}
+.planOverlay.open{ opacity: 1; pointer-events: auto; }
+
+/* Окно плана */
+.planModal{
+  position: fixed;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%) scale(0.98);
+  width: min(92vw, 560px);
+  max-height: 85vh;
+  background: rgba(255,255,255,0.92);
+  border-radius: 18px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+  z-index: 150;
+  backdrop-filter: blur(10px);
+}
+
+body.dark .planModal{
+  background: rgba(20,20,28,0.92);
+  color: #fff;
+}
+
+.planModal.open{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.planHeader{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 12px;
+}
+.planHeader h2{ margin:0; font-size: 20px; }
+.planHeader button{
+  border:0;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.planContent{
+  padding: 12px;
+  overflow: auto;
+  max-height: calc(85vh - 52px);
+  display: grid;
+  gap: 12px;
+}
+
+/* карточки уже у тебя есть (cardBox/cardBtn...), можно использовать их */
+body.dark .cardBox{ background:#1a1a27; }
+body.dark .cardTask{ background:#14141c; }
+body.dark .cardBtn.reject{ border-color: rgba(255,255,255,0.18); color:#fff; }
+
